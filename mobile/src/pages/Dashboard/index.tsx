@@ -19,7 +19,6 @@ import {
   Divider,
 } from './styles';
 import api from '~/services/api';
-import { colors } from '~/styles/theme';
 import { formatPrice } from '~/util/format';
 
 interface Product {

@@ -1,13 +1,18 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import React from 'react';
-import { Text } from 'react-native';
+import { useSelector } from 'react-redux';
 
 import {
   Wrapper, Logo, ButtonContainer, AmountCart, RouteTitle, Amount,
 } from './styles';
+import { ApplicationState } from '~/store';
+import { CartState } from '~/store/modules/cart/types';
 
 const Header: React.FC = () => {
+  const { products } = useSelector<ApplicationState, CartState>((state) => state.cart);
+
   const navigation = useNavigation();
   const route = useRoute();
 
@@ -24,9 +29,11 @@ const Header: React.FC = () => {
       <RouteTitle>eCloset</RouteTitle>
       <ButtonContainer onPress={navigateToCart}>
         <MaterialIcons name="shopping-cart" size={32} color="rgba(255,255,255,0.7)" />
-        <AmountCart>
-          <Amount>2</Amount>
-        </AmountCart>
+        {products.length !== 0 && (
+          <AmountCart>
+            <Amount>{products.length}</Amount>
+          </AmountCart>
+        )}
       </ButtonContainer>
     </Wrapper>
   );
@@ -41,9 +48,11 @@ const Header: React.FC = () => {
         : (
           <ButtonContainer onPress={navigateToCart}>
             <MaterialIcons name="shopping-cart" size={32} color="rgba(255,255,255,0.7)" />
-            <AmountCart>
-              <Amount>2</Amount>
-            </AmountCart>
+            {products.length !== 0 && (
+              <AmountCart>
+                <Amount>{products.length}</Amount>
+              </AmountCart>
+            )}
           </ButtonContainer>
         )}
     </Wrapper>

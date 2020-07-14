@@ -1,6 +1,8 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { Ionicons } from '@expo/vector-icons';
 import { darken } from 'polished';
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import {
   Container,
@@ -11,6 +13,7 @@ import {
   ProductItem,
   ProductPrice,
   ProductName,
+  ProductSize,
   ProductImage,
   DeleteProductIcon,
   ProductInfo,
@@ -20,56 +23,78 @@ import {
   ProductSubTotal,
   TotalText,
   Total,
-  TotalContainer,
-  Wrapper,
   Order,
   OrderText,
 } from './styles';
+import * as CartActions from '~/store/modules/cart/actions';
+import { Product } from '~/store/modules/cart/types';
+import { ApplicationState } from '~/store/types';
 import { colors } from '~/styles/theme';
+import { formatPrice } from '~/util/format';
 
 const Cart: React.FC = () => {
-  const product = {
-    name: 'Camiseta Brasil Nike',
-    category: 'Corrida',
-    formattedPrice: 'R$129,99',
-    image: {
-      url: 'https://images.lojanike.com.br/1024x1024/produto/193551_2060463_20200414160429.png',
-    },
-  };
-  const cart = {
-    product,
-  };
+  const products = useSelector<ApplicationState, Product[]>((state) => state.cart.products.map((product) => ({
+    ...product,
+    subTotal: formatPrice(product.price * product.amount),
+  })));
+
+  const total = formatPrice(
+    products.reduce((sumTotal, product) => sumTotal + product.price * product.amount, 0),
+  );
+
+  const dispatch = useDispatch();
+
+  function increment(index) {
+    dispatch(CartActions.updateAmountRequest(
+      products[index].id,
+      products[index].size,
+      products[index].amount + 1,
+    ));
+  }
+
+  function decrement(index) {
+    dispatch(CartActions.updateAmountRequest(
+      products[index].id,
+      products[index].size,
+      products[index].amount - 1,
+    ));
+  }
 
   return (
     <Container>
-      {cart ? (
+      {products.length > 0 ? (
         <>
-          <ProductItem>
-            <ProductImage source={{ uri: cart.product.image.url }} />
-            <ProductDetails>
-              <ProductName>
-                {cart.product.name}
-              </ProductName>
-              <ProductPrice>{cart.product.formattedPrice}</ProductPrice>
-            </ProductDetails>
-            <IconButton>
-              <DeleteProductIcon />
-            </IconButton>
-            <ProductInfo>
-              <AmountContainer>
-                <IconButton>
-                  <Ionicons name="ios-remove-circle-outline" size={24} color={darken(0.1, colors.tertiary)} />
-                </IconButton>
-                <Amount>3</Amount>
-                <IconButton>
-                  <Ionicons name="ios-add-circle-outline" size={24} color={darken(0.1, colors.tertiary)} />
-                </IconButton>
-              </AmountContainer>
-              <ProductSubTotal>{cart.product.formattedPrice}</ProductSubTotal>
-            </ProductInfo>
-          </ProductItem>
+          {products.map((product, index) => (
+            <ProductItem>
+              <ProductImage source={{ uri: product.image.url }} />
+              <ProductDetails>
+                <ProductName>
+                  {product.name}
+                </ProductName>
+                <ProductSize>
+                  {`Tamanho: ${product.size}`}
+                </ProductSize>
+                <ProductPrice>{product.priceFormatted}</ProductPrice>
+              </ProductDetails>
+              <IconButton>
+                <DeleteProductIcon />
+              </IconButton>
+              <ProductInfo>
+                <AmountContainer>
+                  <IconButton onPress={() => decrement(index)}>
+                    <Ionicons name="ios-remove-circle-outline" size={24} color={darken(0.1, colors.tertiary)} />
+                  </IconButton>
+                  <Amount>{product.amount}</Amount>
+                  <IconButton onPress={() => increment(index)}>
+                    <Ionicons name="ios-add-circle-outline" size={24} color={darken(0.1, colors.tertiary)} />
+                  </IconButton>
+                </AmountContainer>
+                <ProductSubTotal>{product.subTotal}</ProductSubTotal>
+              </ProductInfo>
+            </ProductItem>
+          ))}
           <TotalText>Total</TotalText>
-          <Total>{cart.product.formattedPrice}</Total>
+          <Total>{total}</Total>
           <Order>
             <OrderText>Finalizar pedido</OrderText>
           </Order>

@@ -91,12 +91,14 @@ class ProductController extends Controller
             return response()->json(['error' => $validator->errors()], 401);
         }
 
-        $category_id = Category::where('name', $request->category)->first()->id;
+        $category = Category::where('name', $request->category)->first();
 
-        if (!$category_id) {
-            return response()->json([
-                'error' => "Selected category does not exist"
-            ], 400);
+        if (!$category) {
+            $category = new Category();
+
+            $category['name'] = $request->category;
+
+            $category->save();
         }
 
         $image = $request->file('image');
@@ -108,7 +110,7 @@ class ProductController extends Controller
 
         $product = Product::create($product);
 
-        $product->category_id = $category_id;
+        $product->category_id = $category->id;
         $product->save();
 
         $stock = $request->only(['AmountP', 'AmountM', 'AmountG']);

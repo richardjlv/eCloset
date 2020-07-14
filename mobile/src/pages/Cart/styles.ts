@@ -6,8 +6,6 @@ import styled from 'styled-components/native';
 
 import { colors } from '~/styles/theme';
 
-export const Wrapper = styled.View``;
-
 export const Container = styled.View`
   background: ${colors.white.primary};
   width: 90%;
@@ -74,6 +72,12 @@ export const ProductName = styled.Text.attrs({
   font-family: MontserratMediumItalic;
   color: ${colors.black};
   max-width: 160px;
+`;
+
+export const ProductSize = styled.Text`
+  font-family: Montserrat;
+  color: ${colors.gray};
+  font-size: 12px;
   margin-bottom: 5px;
 `;
 
@@ -126,6 +130,7 @@ export const Amount = styled.Text`
   font-family: MontserratMedium;
   padding: 2px 20px 2px 5px;
   border-radius: 4px;
+  width: 35px;
   background: ${colors.white.primary};
 `;
 

@@ -1,6 +1,7 @@
 import { useRoute, RouteProp } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
+import { useDispatch } from 'react-redux';
 
 import {
   Container,
@@ -23,6 +24,8 @@ import {
 } from './styles';
 import { ProductScreenRouteProp } from '~/routes/types';
 import api from '~/services/api';
+import { addToCartRequest } from '~/store/modules/cart/actions';
+import { alert } from '~/util/alert';
 import { formatPrice } from '~/util/format';
 
 interface Product {
@@ -40,6 +43,8 @@ interface Product {
 }
 
 const Product: React.FC = () => {
+  const dispatch = useDispatch();
+
   const route = useRoute<ProductScreenRouteProp>();
   const [product, setProduct] = useState<Product>(null);
   const [loading, setLoading] = useState(false);
@@ -48,6 +53,7 @@ const Product: React.FC = () => {
     sizeM: false,
     sizeG: false,
   });
+  const [size, setSize] = useState('');
 
   const { id } = route.params;
 
@@ -70,12 +76,21 @@ const Product: React.FC = () => {
     loadProduct();
   }, []);
 
-  function changeSelectedSize(size) {
+  function changeSelectedSize(newSize: string) {
     setSelectedSize({
-      sizeP: size === 'P',
-      sizeM: size === 'M',
-      sizeG: size === 'G',
+      sizeP: newSize === 'P',
+      sizeM: newSize === 'M',
+      sizeG: newSize === 'G',
     });
+    setSize(newSize);
+  }
+
+  function addToCart() {
+    if (size) {
+      dispatch(addToCartRequest(id, size));
+    } else {
+      alert('Selecione um tamanho');
+    }
   }
 
   return (
@@ -118,7 +133,7 @@ const Product: React.FC = () => {
         </ProductInfo>
 
       </Container>
-      <AddButton>
+      <AddButton onPress={addToCart}>
         <AddButtonText>Adicionar</AddButtonText>
       </AddButton>
     </>
