@@ -1,7 +1,7 @@
 import Constants from 'expo-constants';
 import styled from 'styled-components/native';
 
-// import logo from '~/assets/icon.png';
+import logo from '~/assets/logo.png';
 import { colors } from '~/styles/theme';
 
 export const Wrapper = styled.SafeAreaView`
@@ -16,11 +16,11 @@ export const Wrapper = styled.SafeAreaView`
 `;
 
 export const Logo = styled.Image.attrs({
-  // source: logo,
+  source: logo,
   resizeMode: 'cover',
 })`
-  height: 64px;
-  width: 136px;
+  height: 50px;
+  width: 147.48px;
   margin-left: 30px;
 `;
 

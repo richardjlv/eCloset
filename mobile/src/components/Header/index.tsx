@@ -7,8 +7,8 @@ import { useSelector } from 'react-redux';
 import {
   Wrapper, Logo, ButtonContainer, AmountCart, RouteTitle, Amount,
 } from './styles';
-import { ApplicationState } from '~/store';
 import { CartState } from '~/store/modules/cart/types';
+import { ApplicationState } from '~/store/types';
 
 const Header: React.FC = () => {
   const { products } = useSelector<ApplicationState, CartState>((state) => state.cart);
@@ -25,8 +25,8 @@ const Header: React.FC = () => {
 
   const MainHeader = () => (
     <Wrapper>
-      {/* <Logo /> */}
-      <RouteTitle>eCloset</RouteTitle>
+      <Logo />
+      {/* <RouteTitle>eCloset</RouteTitle> */}
       <ButtonContainer onPress={navigateToCart}>
         <MaterialIcons name="shopping-cart" size={32} color="rgba(255,255,255,0.7)" />
         {products.length !== 0 && (
