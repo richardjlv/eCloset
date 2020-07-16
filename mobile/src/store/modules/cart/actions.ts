@@ -10,8 +10,8 @@ export const addToCartSuccess = (product: Product) => action(
   CartTypes.ADD_SUCCESS, { product },
 );
 
-export const removeFromCart = (product: Product) => action(
-  CartTypes.REMOVE, { product },
+export const removeFromCart = (id: number, size: string) => action(
+  CartTypes.REMOVE, { id, size },
 );
 
 export const updateAmountRequest = (id: number, size: string, amount: number) => action(
@@ -24,3 +24,4 @@ export const updateAmountSuccess = (id: number, size: string, amount: number) =>
 
 export type AddToCart = ReturnType<typeof addToCartRequest>;
 export type UpdateAmount = ReturnType<typeof updateAmountRequest>;
+export type removeCart = ReturnType<typeof removeFromCart>;

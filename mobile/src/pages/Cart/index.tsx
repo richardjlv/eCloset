@@ -2,9 +2,11 @@
 import { Ionicons } from '@expo/vector-icons';
 import { darken } from 'polished';
 import React from 'react';
+import { View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
 import {
+  Wrapper,
   Container,
   EmptyText,
   EmptySubText,
@@ -60,12 +62,16 @@ const Cart: React.FC = () => {
     ));
   }
 
+  function remove(index) {
+    dispatch(CartActions.removeFromCart(products[index].id, products[index].size));
+  }
+
   return (
-    <Container>
-      {products.length > 0 ? (
-        <>
+    <Wrapper>
+      {products.length ? (
+        <Container>
           {products.map((product, index) => (
-            <ProductItem>
+            <ProductItem key={String(index)}>
               <ProductImage source={{ uri: product.image.url }} />
               <ProductDetails>
                 <ProductName>
@@ -76,7 +82,7 @@ const Cart: React.FC = () => {
                 </ProductSize>
                 <ProductPrice>{product.priceFormatted}</ProductPrice>
               </ProductDetails>
-              <IconButton>
+              <IconButton onPress={() => remove(index)}>
                 <DeleteProductIcon />
               </IconButton>
               <ProductInfo>
@@ -98,7 +104,7 @@ const Cart: React.FC = () => {
           <Order>
             <OrderText>Finalizar pedido</OrderText>
           </Order>
-        </>
+        </Container>
       )
         : (
           <>
@@ -107,7 +113,7 @@ const Cart: React.FC = () => {
             <EmptySubText>Explore a loja e adicione os produtos que você mais gostar</EmptySubText>
           </>
         )}
-    </Container>
+    </Wrapper>
   );
 };
 

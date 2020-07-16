@@ -24,7 +24,9 @@ const reducer: Reducer<CartState> = (state = INITIAL_STATE, action) => produce(s
       break;
     }
     case CartTypes.REMOVE: {
-      const productIndex = draft.products.findIndex((product) => product.id === action.payload.product.id);
+      const productIndex = draft.products.findIndex((product) => (
+        product.id === action.payload.id && product.size === action.payload.size
+      ));
 
       if (productIndex >= 0) draft.products.splice(productIndex, 1);
       break;

@@ -6,15 +6,18 @@ import styled from 'styled-components/native';
 
 import { colors } from '~/styles/theme';
 
-export const Container = styled.View`
+export const Wrapper = styled.View`
   background: ${colors.white.primary};
   width: 90%;
   border-top-left-radius: 8px;
   border-bottom-left-radius: 8px;
-  margin-top: 25px;
+  margin: 25px 0 25px;
   align-self: flex-end;
   border: 1px solid ${lighten(0.25, colors.primary)};
+  padding: 5px;
 `;
+
+export const Container = styled.ScrollView``;
 
 export const EmptyText = styled.Text`
   color: ${colors.primary};
@@ -51,6 +54,7 @@ export const ProductItem = styled.View`
   flex-direction: row;
   height: 150px;
   padding: 10px 20px 50px 10px;
+  margin-top: 5px;
   border-top-left-radius: 8px;
   border-bottom-left-radius: 8px;
 `;

@@ -82,12 +82,12 @@ export const FilterOptionsText = styled.Text<FilterOptionsProps>`
 
 export const ProductList = styled.FlatList`
   padding: 20px 0;
-  margin: 0 auto;
+  margin: 5px auto 20px;
 `;
 
 export const ProductItem = styled.TouchableOpacity`
   background: ${colors.white.primary};
-  margin: 15px;
+  margin: 0px 15px 25px;
   border-radius: 5px;
   border: 1px solid ${lighten(0.25, colors.secondary)};
 `;
