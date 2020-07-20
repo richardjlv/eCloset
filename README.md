@@ -165,7 +165,7 @@ yarn start --clear
 
 - [Laravel](https://laravel.com/) - PHP Framework
 - [Docker](https://www.docker.com/) - Conteinerização do postgreSQL
-- [React Native](https://reactnative.dev/) - Framework utilizado no frontent
+- [React Native](https://reactnative.dev/) - Framework utilizado no frontend
 - [Expo](https://expo.io/) - Ferramenta de desenvolvimento utilizando React Native
 - [Styled components](https://styled-components.com/) - Estilização de componentes no react native
 - [Reactotron](https://github.com/infinitered/reactotron) - Ferramenta de debug do frontend
