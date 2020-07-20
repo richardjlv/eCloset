@@ -1,5 +1,5 @@
 <div align="center">
-  <img width= 300 height= 50 src="demo/Nome_Deixa_Comigo.png" alt="logo"/>
+  <img width= 300 src=".github/logo.png" alt="logo"/>
 </div>
 
 <p align="center">
@@ -9,10 +9,12 @@
   <a href="#rodando-o-projeto-localmente">Rodando o projeto localmente</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#tecnologias-utilizadas">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 </p>
-
-![Home](.github/homepage.png)
-![Details](.github/productdetail.png)
-![Cart](.github/cartpage.png)
+<div align="center">
+<img width= 300 src=".github/splash.jpg" alt="logo"/>
+<img width= 300 src=".github/home.jpg" alt="logo"/>
+<img width= 300 src=".github/cart.jpg" alt="logo"/>
+<img width= 300 src=".github/details.jpg" alt="logo"/>
+</div>
 </div>
 
 O eCloset é um projeto de e-commerce para uma loja de roupas.
